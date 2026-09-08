@@ -18,7 +18,7 @@
         }
         
         50% {
-          transform: translateY(25%);
+          transform: translateY(4%);
         }
 
         100% {
@@ -30,6 +30,11 @@
             height: 100%;
             width: 100%;
             font-family: "Avenir Next", sans-serif;
+            margin: 0;
+        }
+        a {
+          text-decoration: none;
+          color: white;
         }
         .background {
             height: 100%;
@@ -37,15 +42,18 @@
             background-image: url("backgroundImage.png");
             background-size: contain;
             position: relative;
+            /* filter: blur(14px); */
         }
         .category {
           position: absolute;
-          animation: bounce 1s ease-in-out 0s infinite normal forwards;
+          height: 19cqw;
+          width: 19cqw;
+          animation: bounce 9s ease-in-out 0s infinite normal forwards;
         }
         .imageContainer {
           position: relative;
-          height: 200px;
-          width: 200px;
+          height: 100%;
+          width: 100%;
           border-radius: 50%;
           border: 10px solid rgb(23, 27, 96);
           overflow: hidden;
@@ -66,15 +74,14 @@
           background-color: white;
         }
         .linkWidthContainer {
-          width: 80%;
-            display: flex;
+          width: 85%;
+          display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
         }
         .title {
           font-weight: bold;
-          text-transform: uppercase;
           font-size: 12px;
         }
         .description {
@@ -85,27 +92,233 @@
         .rotate180 {
           transform: rotate(180deg);
         }
+        .popUpBackground {
+          position: absolute;
+          top: 0;
+          z-index: -5;
+          height: 0;
+          width: 100%;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(0, 15, 46, 0.7);
+          font-size: 20px;
+        }
+        .popUpParent {
+          height: 375px;
+          width: 575px;
+          border-radius: 25px;
+          display: flex;
+          align-items: end;
+          overflow: hidden;
+        }
+        .popUpChild {
+          height: 98%;
+          width: 100%;
+          background-color: white;
+          border-top-left-radius: 14px;
+          border-top-right-radius: 14px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .popUpContent {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          max-width: 85%;
+          gap: 30px;
+          text-align: center;
+        }
+        .dot {
+          border-radius: 100%;
+          height: 18px;
+          width: 18px;
+        }
+        .popUpTitle {
+          font-weight: bold;
+          color: rgb(23, 27, 96);
+          font-size: 40px;
+        }
+        .button {
+          color: white;
+          font-weight: 600;
+          font-size: 18px;
+          padding: 40px;
+          padding-top: 12px;
+          padding-bottom: 12px;
+          border-radius: 25px;
+        }
+        .instructions {
+          color: white;
+          position: absolute;
+          /* display: flex;
+          justify-content: center;
+          align-items: center; */
+          height: 100%;
+          width: 100%;
+        } 
+        .instructionsChild {
+          position: relative;
+          left: 50%;
+          top: 30%;
+          width: 130px;
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+        }
+        .instructionsTitle {
+          font-weight: bold;
+          font-size: 20px;
+          line-height: 22px;
+        }
+        .instructionsSubtitle {
+          font-weight: 500;
+          font-size: 10px;
+        }
     </style>
 </head>
   <body>
-    <div class="background">
-      <div class="category">
-        <div class="imageContainer" style="left: 40px; top: 20px">
-          <img src="portwatch.png" width="255px">
+    <div class="background" id="background">
+
+      <!-- <div class="instructions">
+        <div class="instructionsChild">
+          <span class="instructionsTitle">IMF DATA PRODUCTS</span>
+          <span class="instructionsSubtitle">TAP A GLOBE TO EXPLORE</span>
         </div>
-        <div class="linkContainer" style="left: 180px; bottom: 190px; border-color: rgb(150, 27, 96);">
-          <div class="linkWidthContainer">
-            <span class="title">PORTWATCH</span>
-            <span class="description">Real-time port monitoring and shipping traffic analytics powered by IMF data infrastructure.</span>
-            <svg class="rotate180" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M10 18.75C14.8438 18.75 18.75 14.8438 18.75 10C18.75 5.15625 14.8438 1.25 10 1.25C5.15625 1.25 1.25 5.15625 1.25 10C1.25 14.8438 5.15625 18.75 10 18.75ZM10 0C15.5078 0 20 4.49219 20 10C20 15.5078 15.5078 20 10 20C4.49219 20 0 15.5078 0 10C0 4.49219 4.49219 0 10 0ZM5.19531 9.17969C4.96094 8.94531 4.96094 8.55469 5.19531 8.32031C5.42969 8.08594 5.82031 8.08594 6.05469 8.32031L10 12.2266L13.9453 8.32031C14.1797 8.08594 14.5703 8.08594 14.8047 8.32031C15.0781 8.55469 15.0781 8.94531 14.8047 9.17969L10.4297 13.5547C10.1953 13.8281 9.80469 13.8281 9.57031 13.5547L5.19531 9.17969Z"
-                fill="black" />
-            </svg>
-          </div>
-        </div>
-      </div>
+      </div> -->
     </div>
-    <script></script>
+    <div class="popUpBackground" id="popUpBackground" onclick="closePopUp(event.target.id)"></div>
+    <script>
+      var x = document.getElementById("popUpBackground");
+
+      function closePopUp(e) {
+        console.log(e);
+        if (e == "popUpBackground") {
+          x.style.zIndex = -1;
+          x.style.height = 0;
+        }
+      }
+
+      function openPopUp(color, title, description, link) {
+        x.innerHTML = 
+          `<div class="popUpParent" style="background-color: ${color};">
+              <div class="popUpChild">
+                <div class="popUpContent">
+                  <div class="dot" style="background-color: ${color};"></div>
+                  <span class="popUpTitle">${title}</span>
+                  <span class="popUpDescription">${description}</span>
+                  <div class="button" style="background-color: ${color};">
+                    <a href=${link}>Explore</a>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+        x.style.zIndex = 1;
+        x.style.height = '100%';
+      }
+
+      const categorySpecs = [
+        {
+          categoryStyle: "position: absolute; left: 0%",
+          onClickFunction: "openPopUp('rgb(48, 174, 184)', 'PORTWATCH', 'Real-time port monitoring and shipping traffic analytics powered by IMF data infrastructure.', '/')",
+          imageContainerStyle: "left: 40px; top: 20px",
+          imageSource: "portwatch.png",
+          linkContainerStyle: "left: 180px; bottom: 190px; border-color: rgb(48, 174, 184);",
+          title: "PORTWATCH",
+          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+          fill: "rgb(48, 174, 184)"
+        },
+        {
+          categoryStyle: "position: absolute; left: 30%",
+          onClickFunction: "openPopUp('rgb(120, 189, 46)', 'NowHub', 'Live economic nowcasting feeds, real-time dashboard insights, and indicator tracking.', '/')",
+          imageContainerStyle: "left: 40px; top: 20px",
+          imageSource: "portwatch.png",
+          linkContainerStyle: "left: 180px; bottom: 190px; border-color: rgb(120, 189, 46);",
+          title: "NowHub",
+          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+          fill: "rgb(120, 189, 46)"
+        },
+        {
+          categoryStyle: "position: absolute; left: 60%",
+          onClickFunction: "openPopUp('rgb(212, 58, 41)', 'GEOPULSE', 'Geospatial economic intelligence and regional analytics across 190+ countries.', '/')",
+          imageContainerStyle: "left: 40px; top: 20px",
+          imageSource: "portwatch.png",
+          linkContainerStyle: "left: 180px; bottom: 190px; border-color: rgb(212, 58, 41);",
+          title: "GEOPULSE",
+          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+          fill: "rgb(212, 58, 41)"
+        },
+        {
+          categoryStyle: "position: absolute; left: 20%; bottom: 50%;",
+          onClickFunction: "openPopUp('rgb(248, 200, 51)', 'StatGPT', 'AI-powered statistical queries, data exploration, and automated reporting.', '/')",
+          imageContainerStyle: "left: 40px; top: 20px",
+          imageSource: "portwatch.png",
+          linkContainerStyle: "left: -20px; bottom: 140px; border-color: rgb(248, 200, 51);",
+          title: "StatGPT",
+          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+          fill: "rgb(248, 200, 51)"
+        },
+        {
+          categoryStyle: "position: absolute; left: 0%; bottom: 30%;",
+          onClickFunction: "openPopUp('rgb(221, 91, 32)', 'Compilers Hubs', 'Collaborative data compilation, review, and quality assurance hub for IMF statistics.', '/')",
+          imageContainerStyle: "left: 40px; top: 20px",
+          imageSource: "portwatch.png",
+          linkContainerStyle: "left: 180px; bottom: 150px; border-color: rgb(221, 91, 32);",
+          title: "Compilers Hub",
+          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+          fill: "rgb(221, 91, 32)"
+        },
+        {
+          categoryStyle: "position: absolute; left: 30%; bottom: 30%;",
+          onClickFunction: "openPopUp('rgb(31, 26, 95)', 'Talk2Manuals', 'Conversational AI interface for navigating IMF documentation and methodology.', '/')",
+          imageContainerStyle: "left: 40px; top: 20px",
+          imageSource: "portwatch.png",
+          linkContainerStyle: "left: 150px; bottom: 220px; border-color: rgb(31, 26, 95);",
+          title: "Talk2Manuals",
+          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+          fill: "rgb(31, 26, 95)"
+        },
+        {
+          categoryStyle: "position: absolute; left: 60%; bottom: 30%;",
+          onClickFunction: "openPopUp('rgb(55, 154, 220)', 'Mario', 'Macroeconomic analysis, modeling, reporting, and cross-country indicator comparison.', '/')",
+          imageContainerStyle: "left: 40px; top: 20px",
+          imageSource: "portwatch.png",
+          linkContainerStyle: "left: 0px; bottom: 170px; border-color: rgb(55, 154, 220);",
+          title: "Mario",
+          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+          fill: "rgb(55, 154, 220)"
+        },
+      ];
+
+      function spawnCategories() {
+        categorySpecs.forEach((e) => {
+          const node = document.createElement("div");
+          node.innerHTML =
+          `<div class="category" style="${e.categoryStyle}" onclick="${e.onClickFunction}">
+            <div class="imageContainer" style="${e.imageContainerStyle}">
+              <img src="${e.imageSource}" width="130%">
+            </div>
+            <div class="linkContainer" style="${e.linkContainerStyle}">
+              <div class="linkWidthContainer">
+                <span class="title">${e.title}</span>
+                <span class="description">${e.description}</span>
+                <svg class="rotate180" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M10 18.75C14.8438 18.75 18.75 14.8438 18.75 10C18.75 5.15625 14.8438 1.25 10 1.25C5.15625 1.25 1.25 5.15625 1.25 10C1.25 14.8438 5.15625 18.75 10 18.75ZM10 0C15.5078 0 20 4.49219 20 10C20 15.5078 15.5078 20 10 20C4.49219 20 0 15.5078 0 10C0 4.49219 4.49219 0 10 0ZM5.19531 9.17969C4.96094 8.94531 4.96094 8.55469 5.19531 8.32031C5.42969 8.08594 5.82031 8.08594 6.05469 8.32031L10 12.2266L13.9453 8.32031C14.1797 8.08594 14.5703 8.08594 14.8047 8.32031C15.0781 8.55469 15.0781 8.94531 14.8047 9.17969L10.4297 13.5547C10.1953 13.8281 9.80469 13.8281 9.57031 13.5547L5.19531 9.17969Z"
+                    fill="${e.fill}" />
+                </svg>
+              </div>
+            </div>
+          </div>`;
+          document.getElementById("background").appendChild(node);
+        })
+      }
+
+      spawnCategories();
+    </script>
   </body>
 </html>
