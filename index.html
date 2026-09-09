@@ -25,56 +25,106 @@
           transform: translateY(0%);
         }
       }
-        html, body {
-            background-color: rgb(30, 75, 146);
-            height: 100%;
-            width: 100%;
-            font-family: "Avenir Next", sans-serif;
-            margin: 0;
+        html {
+          background-color: rgb(255, 255, 255);
+          height: 100%;
+          width: 100%;
+          font-family: "Avenir Next", sans-serif;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        body {
+          width: 100vw;
+          height: calc(100vw * 9 / 16);
+          max-width: calc(100vh * 16 / 9);
+          max-height: 100vh;
+          aspect-ratio: 16 / 9;
         }
         a {
           text-decoration: none;
           color: white;
         }
+        .navigation {
+          height: 100%;
+          width: 100%;
+          background-color: white;
+          display: flex;
+          align-items: center;
+          justify-content: end;
+        }
+        .navProjectContainer {
+          display: flex;
+          flex-direction: column;
+          height: 90%;
+          width: 0%;
+          overflow: hidden;
+        }
+        .navReturn {
+          padding-bottom: 35%;
+          font-weight: bold;
+          color: rgba(0, 76, 151, 1);
+          cursor: pointer;
+        }
+        .navProjectTitle {
+          font-size: 24px;
+          font-weight: bold;
+        }
+        .navProjectDescription {
+          font-size: calc(3px + 0.6vw);
+          height: 100%;
+        }
+        .navNext {
+          font-weight: bold;
+          display: flex;
+          flex-direction: column;
+          justify-content: end;
+          color: rgba(0, 76, 151, 1);
+          cursor: pointer;
+        }
         .background {
-            height: 100%;
-            width: 100%;
-            background-image: url("backgroundImage.png");
-            background-size: contain;
-            position: relative;
-            /* filter: blur(14px); */
+          height: 100%;
+          width: 100%;
+          background-image: linear-gradient(rgba(33, 74, 149, 0.6), rgba(33, 74, 149, 0.6)), url("backgroundImage.png");
+          background-size: contain;
+          position: relative;
+          transition: all 0.2s ease-in-out;
         }
         .category {
           position: absolute;
-          height: 19cqw;
-          width: 19cqw;
-          animation: bounce 9s ease-in-out 0s infinite normal forwards;
+          height: calc(20px + 12vw);
+          width: calc(20px + 12vw);
+          animation: bounce 7s ease-in-out 0s infinite normal forwards;
         }
         .imageContainer {
           position: relative;
           height: 100%;
           width: 100%;
           border-radius: 50%;
-          border: 10px solid rgb(23, 27, 96);
-          overflow: hidden;
+          border: calc(5px + 0.5vw) solid rgb(23, 27, 96);
+          box-shadow: 3px 4px 10px 5px rgba(0,0,0, 0.3);
           display: flex;
           justify-content: center;
           align-items: center;
+          overflow: hidden;
         }
         .linkContainer {
           position: relative;
-          height: 120px;
-          width: 120px;
+          height: calc(20px + 7vw);
+          width: calc(20px + 7vw);
           border-radius: 50%;
-          border: 8px solid;
+          border: calc(2px + 0.4vw) solid;
           overflow: hidden;
           display: flex;
           justify-content: center;
           align-items: center;
           background-color: white;
+          cursor: pointer;
+          text-align: center;
         }
         .linkWidthContainer {
-          width: 85%;
+          width: 75%;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -82,19 +132,22 @@
         }
         .title {
           font-weight: bold;
-          font-size: 12px;
+          font-size: calc(4px + 0.8vw);
         }
         .description {
-          font-size: 8px;
+          font-size: calc(3px + 0.5vw);
           text-align: center;
           padding-bottom: 5px;
         }
         .rotate180 {
           transform: rotate(180deg);
+          width: calc(3px + 1vw);
+          height: calc(3px + 1vw);
         }
         .popUpBackground {
-          position: absolute;
+          position: fixed;
           top: 0;
+          left: 0;
           z-index: -5;
           height: 0;
           width: 100%;
@@ -104,6 +157,8 @@
           justify-content: center;
           background-color: rgba(0, 15, 46, 0.7);
           font-size: 20px;
+          transition: opacity 0.1s ease-in-out;
+          opacity: 0;
         }
         .popUpParent {
           height: 375px;
@@ -112,6 +167,8 @@
           display: flex;
           align-items: end;
           overflow: hidden;
+          box-shadow: 3px 4px 10px 5px rgba(0,0,0, 0.3);
+
         }
         .popUpChild {
           height: 98%;
@@ -163,47 +220,157 @@
         } 
         .instructionsChild {
           position: relative;
-          left: 50%;
-          top: 30%;
-          width: 130px;
+          left: 35%;
+          top: 50%;
+          width: 250px;
           display: flex;
           flex-direction: column;
           text-align: center;
         }
         .instructionsTitle {
           font-weight: bold;
-          font-size: 20px;
-          line-height: 22px;
+          font-size: calc(9px + 1vw);
+          line-height: calc(5px + 1vw);
         }
         .instructionsSubtitle {
           font-weight: 500;
-          font-size: 10px;
+          font-size: calc(10px + 0.3vw);
         }
+        .iframe {
+          height: 0%;
+          width: 0%;
+          position: relative;
+          z-index: 1;
+        }
+
     </style>
 </head>
   <body>
-    <div class="background" id="background">
-
-      <!-- <div class="instructions">
-        <div class="instructionsChild">
-          <span class="instructionsTitle">IMF DATA PRODUCTS</span>
-          <span class="instructionsSubtitle">TAP A GLOBE TO EXPLORE</span>
+    <div class="navigation">
+      <div class="navProjectContainer" id="navProjectContainer">
+        <div class="navReturn" onclick="returnHome()">RETURN TO MAIN MENU</div>
+        <div class="navProjectTitle" id="navProjectTitle">PORTWATCH</div>
+        <div class="navProjectDescription" id="navProjectDescription"></div>
+        <div class="navNext">
+          <span onclick="nextProject()">NEXT PROJECT</span>
         </div>
-      </div> -->
+      </div>
+      <div class="background" id="background">
+        <div class="instructions">
+          <div class="instructionsChild">
+            <span class="instructionsTitle">IMF DATA PRODUCTS</span>
+            <span class="instructionsSubtitle">TAP A GLOBE TO EXPLORE</span>
+          </div>
+        </div>
+      </div>
+      <div class="iframe" id="iframe"></div>
     </div>
     <div class="popUpBackground" id="popUpBackground" onclick="closePopUp(event.target.id)"></div>
     <script>
-      var x = document.getElementById("popUpBackground");
+      
+      var projectIndex = null;
 
+      var x = document.getElementById("popUpBackground");
+      var y = document.getElementById("background");
+      var z = document.getElementById("navProjectContainer");
+      var zTitle = document.getElementById("navProjectTitle");
+      var zDesc = document.getElementById("navProjectDescription");
+      var a = document.getElementById("iframe");
+
+      function enterNavigation(title, description, path, index) {
+        z.style.width = "20%";
+        z.style.overflow = "visible";
+        z.style.paddingRight = "80px";
+        z.style.paddingLeft = "30px";
+
+        zTitle.innerHTML = title;
+        zDesc.innerHTML = description;
+
+        y.style.height = "0%";
+        y.style.width = "0%";
+        y.style.overflow = "hidden";
+        y.style.zIndex = -1;
+
+        x.style.zIndex = -1;
+        x.style.height = 0;
+        x.style.opacity = 0;
+        y.style.filter = 'blur(0px)';
+
+        a.innerHTML = 
+        `<iframe
+          id="inlineFrameExample"
+          title="Inline Frame Example"
+          width="100%"
+          height="100%"
+          src="${path}">
+        </iframe>`;
+
+        a.style.height = "100%";
+        a.style.width = "100%";
+        a.style.zIndex = 0;
+        a.style.marginRight = "3%";
+
+        projectIndex = index;
+        console.log(projectIndex);
+        console.log(index);
+      }
+
+      function returnHome() {
+        z.style.width = "0%";
+        z.style.overflow = "hidden";
+        z.style.paddingRight = "0";
+        z.style.paddingLeft = "0";
+
+        zTitle.innerHTML = "";
+        zDesc.innerHTML = "";
+
+        y.style.height = "100%";
+        y.style.width = "100%";
+        y.style.overflow = "visible";
+        y.style.zIndex = 1;
+
+        x.style.zIndex = -1;
+        x.style.height = 0;
+        x.style.opacity = 0;
+        y.style.filter = 'blur(0px)';
+
+        a.innerHTML = ``;
+        a.style.height = "0%";
+        a.style.width = "0%";
+        a.style.zIndex = 0;
+        a.style.marginRight = "0%";
+      }
+
+      function nextProject() {
+        if (projectIndex < categorySpecs.length - 1) {
+          projectIndex++;
+        } else {
+          projectIndex = 0;
+        }
+        console.log(projectIndex);
+
+        zTitle.innerHTML = categorySpecs[projectIndex].title;
+        zDesc.innerHTML = categorySpecs[projectIndex].htmlDescription;
+        a.innerHTML = 
+        `<iframe
+          id="inlineFrameExample"
+          title="Inline Frame Example"
+          width="100%"
+          height="100%"
+          src="${categorySpecs[projectIndex].link}">
+        </iframe>`;
+      }
+      
       function closePopUp(e) {
-        console.log(e);
         if (e == "popUpBackground") {
           x.style.zIndex = -1;
           x.style.height = 0;
+          x.style.opacity = 0;
+          y.style.filter = 'blur(0px)';
         }
       }
 
-      function openPopUp(color, title, description, link) {
+      function openPopUp(color, title, description, detailedDescription, link, index) {
         x.innerHTML = 
           `<div class="popUpParent" style="background-color: ${color};">
               <div class="popUpChild">
@@ -212,85 +379,115 @@
                   <span class="popUpTitle">${title}</span>
                   <span class="popUpDescription">${description}</span>
                   <div class="button" style="background-color: ${color};">
-                    <a href=${link}>Explore</a>
+                    <div onclick="enterNavigation('${title}', '${detailedDescription}', '${link}', ${index})">Explore</div>
                   </div>
                 </div>
               </div>
             </div>`;
         x.style.zIndex = 1;
         x.style.height = '100%';
+        x.style.opacity = 1;
+        y.style.filter = 'blur(8px)';
       }
 
       const categorySpecs = [
         {
           categoryStyle: "position: absolute; left: 0%",
-          onClickFunction: "openPopUp('rgb(48, 174, 184)', 'PORTWATCH', 'Real-time port monitoring and shipping traffic analytics powered by IMF data infrastructure.', '/')",
-          imageContainerStyle: "left: 40px; top: 20px",
+          onClickFunction: "openPopUp('rgb(48, 174, 184)', 'PORTWATCH', 'Monitoring Trade Disruptions from Space', '<span>Using satellite-based vessel data and big data analytics, the PortWatch platform helps policymakers, analysts, and other public stakeholders assess the impact of disruptions to maritime trade. Users can simulate the potential indirect spillover effects of port disruptions to other countries in the maritime network and global supply chains.</span>', 'https://portwatch.imf.org/', 0)",
+          imageContainerStyle: "left: 20%; top: 10%",
           imageSource: "portwatch.png",
-          linkContainerStyle: "left: 180px; bottom: 190px; border-color: rgb(48, 174, 184);",
+          imageWidth: "150%",
+          linkContainerStyle: "left: 80%; bottom: 100%; border-color: rgb(48, 174, 184);",
           title: "PORTWATCH",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(48, 174, 184)"
+          description: "Monitoring Trade Disruptions from Space",
+          fill: "rgb(48, 174, 184)",
+          htmlDescription: "<span>Using satellite-based vessel data and big data analytics, the PortWatch platform helps policymakers, analysts, and other public stakeholders assess the impact of disruptions to maritime trade. Users can simulate the potential indirect spillover effects of port disruptions to other countries in the maritime network and global supply chains.</span>",
+          link: "https://portwatch.imf.org/'",
+          index: 0
         },
         {
-          categoryStyle: "position: absolute; left: 30%",
-          onClickFunction: "openPopUp('rgb(120, 189, 46)', 'NowHub', 'Live economic nowcasting feeds, real-time dashboard insights, and indicator tracking.', '/')",
-          imageContainerStyle: "left: 40px; top: 20px",
-          imageSource: "portwatch.png",
-          linkContainerStyle: "left: 180px; bottom: 190px; border-color: rgb(120, 189, 46);",
-          title: "NowHub",
+          categoryStyle: "position: absolute; left: 35%; bottom: 65%;",
+          onClickFunction: "openPopUp('rgb(120, 189, 46)', 'IMF Data', '', '<span></span>', 'https://data.imf.org', 1)",
+          imageContainerStyle: "left: 20%; top: 10%",
+          imageSource: "nowhub.png",
+          imageWidth: "160%",
+          linkContainerStyle: "left: 80%; bottom: 120%; border-color: rgb(120, 189, 46);",
+          title: "IMF Data",
           description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(120, 189, 46)"
+          fill: "rgb(120, 189, 46)",
+          htmlDescription: "<span></span>",
+          link: "https://data.imf.org",
+          index: 1
         },
         {
-          categoryStyle: "position: absolute; left: 60%",
-          onClickFunction: "openPopUp('rgb(212, 58, 41)', 'GEOPULSE', 'Geospatial economic intelligence and regional analytics across 190+ countries.', '/')",
-          imageContainerStyle: "left: 40px; top: 20px",
-          imageSource: "portwatch.png",
-          linkContainerStyle: "left: 180px; bottom: 190px; border-color: rgb(212, 58, 41);",
+          categoryStyle: "position: absolute; left: 60%; bottom: 65%;",
+          onClickFunction: "openPopUp('rgb(212, 58, 41)', 'GEOPULSE', 'Track, Analyze, and Respond to Economic Risk', '<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>', 'https://wgbcamp.github.io/geopulse-dev/', 2)",
+          imageContainerStyle: "left: 30%; top: 10%; overflow: visible;",
+          imageSource: "geopulse.png",
+          imageWidth: "170%",
+          linkContainerStyle: "left: 10%; bottom: 65%; border-color: rgb(212, 58, 41);",
           title: "GEOPULSE",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(212, 58, 41)"
+          description: "Track, Analyze, and Respond to Economic Risk",
+          fill: "rgb(212, 58, 41)",
+          htmlDescription: "<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>",
+          link: "https://wgbcamp.github.io/geopulse-dev/",
+          index: 2
         },
         {
-          categoryStyle: "position: absolute; left: 20%; bottom: 50%;",
-          onClickFunction: "openPopUp('rgb(248, 200, 51)', 'StatGPT', 'AI-powered statistical queries, data exploration, and automated reporting.', '/')",
-          imageContainerStyle: "left: 40px; top: 20px",
-          imageSource: "portwatch.png",
-          linkContainerStyle: "left: -20px; bottom: 140px; border-color: rgb(248, 200, 51);",
+          categoryStyle: "position: absolute; left: 15%; bottom: 40%;",
+          onClickFunction: "openPopUp('rgb(248, 200, 51)', 'StatGPT', 'AI for Official Statistics', '<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>', 'https://portal.statgpt.org/', 3)",
+          imageContainerStyle: "left: 20%; top: 0%%",
+          imageSource: "statgpt.png",
+          imageWidth: "150%",
+          linkContainerStyle: "left: -15%; bottom: 95%; border-color: rgb(248, 200, 51);",
           title: "StatGPT",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(248, 200, 51)"
+          description: "AI for Official Statistics",
+          fill: "rgb(248, 200, 51)",
+          htmlDescription: "<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>'",
+          link: "https://portal.statgpt.org/",
+          index: 3
         },
         {
-          categoryStyle: "position: absolute; left: 0%; bottom: 30%;",
-          onClickFunction: "openPopUp('rgb(221, 91, 32)', 'Compilers Hubs', 'Collaborative data compilation, review, and quality assurance hub for IMF statistics.', '/')",
-          imageContainerStyle: "left: 40px; top: 20px",
-          imageSource: "portwatch.png",
-          linkContainerStyle: "left: 180px; bottom: 150px; border-color: rgb(221, 91, 32);",
+          categoryStyle: "position: absolute; left: 0%; bottom: 15%;",
+          onClickFunction: "openPopUp('rgb(221, 91, 32)', 'Compilers Hubs', 'Connect with the International Community of Macroeconomic Statisticians', '<span>The International Community of Macroeconomic Statisticians (ICMStat) is dedicated to advancing statistical standards and championing the value of high quality statistics. Leverage the Hub—an interactive digital platform where members access international statistical manuals, training materials, and tools, and engage with peers for collaboration and advice.</span>', 'https://compilershub.imf.org/home', 4)",
+          imageContainerStyle: "left: 20%; top: 10%",
+          imageSource: "compilershub.png",
+          imageWidth: "180%",
+          linkContainerStyle: "left: 80%; bottom: 90%; border-color: rgb(221, 91, 32);",
           title: "Compilers Hub",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(221, 91, 32)"
+          description: "Connect with the International Community of Macroeconomic Statisticians",
+          fill: "rgb(221, 91, 32)",
+          htmlDescription: "<span>The International Community of Macroeconomic Statisticians (ICMStat) is dedicated to advancing statistical standards and championing the value of high quality statistics. Leverage the Hub—an interactive digital platform where members access international statistical manuals, training materials, and tools, and engage with peers for collaboration and advice.</span>",
+          link: "https://compilershub.imf.org/home",
+          index: 4
         },
         {
-          categoryStyle: "position: absolute; left: 30%; bottom: 30%;",
-          onClickFunction: "openPopUp('rgb(31, 26, 95)', 'Talk2Manuals', 'Conversational AI interface for navigating IMF documentation and methodology.', '/')",
-          imageContainerStyle: "left: 40px; top: 20px",
-          imageSource: "portwatch.png",
-          linkContainerStyle: "left: 150px; bottom: 220px; border-color: rgb(31, 26, 95);",
+          categoryStyle: "position: absolute; left: 30%; bottom: 15%;",
+          onClickFunction: "openPopUp('rgb(31, 26, 95)', 'Talk2Manuals', 'Talk to the Statistical Standards', '<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>', 'https://talk2manuals.imf.org/', 5)",
+          imageContainerStyle: "left: 20%; top: 15%",
+          imageSource: "talk2manuals.png",
+          imageWidth: "150%",
+          linkContainerStyle: "left: 70%; bottom: 110%; border-color: rgb(31, 26, 95);",
           title: "Talk2Manuals",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(31, 26, 95)"
+          description: "Talk to the Statistical Standards",
+          fill: "rgb(31, 26, 95)",
+          htmlDescription: "<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>",
+          link: "https://talk2manuals.imf.org/",
+          index: 5
         },
         {
-          categoryStyle: "position: absolute; left: 60%; bottom: 30%;",
-          onClickFunction: "openPopUp('rgb(55, 154, 220)', 'Mario', 'Macroeconomic analysis, modeling, reporting, and cross-country indicator comparison.', '/')",
-          imageContainerStyle: "left: 40px; top: 20px",
-          imageSource: "portwatch.png",
-          linkContainerStyle: "left: 0px; bottom: 170px; border-color: rgb(55, 154, 220);",
+          categoryStyle: "position: absolute; left: 60%; bottom: 20%;",
+          onClickFunction: "openPopUp('rgb(55, 154, 220)', 'Mario', 'The World’s Largest Statistical Sudoku', '<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>', 'global_trade_dashboard_v3.html', 6)",
+          imageContainerStyle: "left: 20%; top: 0%",
+          imageSource: "mario.png",
+          imageWidth: "200%",
+          linkContainerStyle: "left: -20%; bottom: 100%; border-color: rgb(55, 154, 220);",
           title: "Mario",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(55, 154, 220)"
+          description: "The World’s Largest Statistical Sudoku",
+          fill: "rgb(55, 154, 220)",
+          htmlDescription: "<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>",
+          link: "global_trade_dashboard_v3.html",
+          index: 6
         },
       ];
 
@@ -300,13 +497,13 @@
           node.innerHTML =
           `<div class="category" style="${e.categoryStyle}" onclick="${e.onClickFunction}">
             <div class="imageContainer" style="${e.imageContainerStyle}">
-              <img src="${e.imageSource}" width="130%">
+              <img src="${e.imageSource}" width="${e.imageWidth}">
             </div>
             <div class="linkContainer" style="${e.linkContainerStyle}">
               <div class="linkWidthContainer">
                 <span class="title">${e.title}</span>
-                <span class="description">${e.description}</span>
-                <svg class="rotate180" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="description" style="padding-bottom: 5%;">${e.description}</span>
+                <svg class="rotate180" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M10 18.75C14.8438 18.75 18.75 14.8438 18.75 10C18.75 5.15625 14.8438 1.25 10 1.25C5.15625 1.25 1.25 5.15625 1.25 10C1.25 14.8438 5.15625 18.75 10 18.75ZM10 0C15.5078 0 20 4.49219 20 10C20 15.5078 15.5078 20 10 20C4.49219 20 0 15.5078 0 10C0 4.49219 4.49219 0 10 0ZM5.19531 9.17969C4.96094 8.94531 4.96094 8.55469 5.19531 8.32031C5.42969 8.08594 5.82031 8.08594 6.05469 8.32031L10 12.2266L13.9453 8.32031C14.1797 8.08594 14.5703 8.08594 14.8047 8.32031C15.0781 8.55469 15.0781 8.94531 14.8047 9.17969L10.4297 13.5547C10.1953 13.8281 9.80469 13.8281 9.57031 13.5547L5.19531 9.17969Z"
                     fill="${e.fill}" />
@@ -315,6 +512,9 @@
             </div>
           </div>`;
           document.getElementById("background").appendChild(node);
+        });
+        document.querySelectorAll('.category').forEach((e) => {
+          e.style.animationDelay = (Math.random() * 2.5) + 's';
         })
       }
 
