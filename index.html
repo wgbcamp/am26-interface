@@ -66,10 +66,13 @@
           font-weight: bold;
           color: rgba(0, 76, 151, 1);
           cursor: pointer;
+          display: flex;
+          gap: 20px;
         }
         .navProjectTitle {
-          font-size: 24px;
+          font-size: calc(12px + 1vw);
           font-weight: bold;
+          padding-bottom: 24px;
         }
         .navProjectDescription {
           font-size: calc(3px + 0.6vw);
@@ -78,16 +81,17 @@
         .navNext {
           font-weight: bold;
           display: flex;
-          flex-direction: column;
-          justify-content: end;
+          align-items: end;
           color: rgba(0, 76, 151, 1);
           cursor: pointer;
+          gap: 20px;
         }
         .background {
           height: 100%;
           width: 100%;
           background-image: linear-gradient(rgba(33, 74, 149, 0.6), rgba(33, 74, 149, 0.6)), url("backgroundImage.png");
           background-size: contain;
+          background-color: rgb(33, 74, 149);
           position: relative;
           transition: all 0.2s ease-in-out;
         }
@@ -124,7 +128,7 @@
           text-align: center;
         }
         .linkWidthContainer {
-          width: 75%;
+          width: 90%;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -132,10 +136,10 @@
         }
         .title {
           font-weight: bold;
-          font-size: calc(4px + 0.8vw);
+          font-size: calc(4px + 0.7vw);
         }
         .description {
-          font-size: calc(3px + 0.5vw);
+          font-size: calc(3px + 0.4vw);
           text-align: center;
           padding-bottom: 5px;
         }
@@ -208,29 +212,32 @@
           padding-top: 12px;
           padding-bottom: 12px;
           border-radius: 25px;
+          cursor: pointer;
         }
         .instructions {
           color: white;
           position: absolute;
-          /* display: flex;
+          display: flex;
+          align-items: center;
           justify-content: center;
-          align-items: center; */
-          height: 100%;
+          height: 30%;
           width: 100%;
         } 
         .instructionsChild {
-          position: relative;
-          left: 35%;
-          top: 50%;
-          width: 250px;
           display: flex;
+          gap: 13px;
           flex-direction: column;
           text-align: center;
         }
         .instructionsTitle {
           font-weight: bold;
-          font-size: calc(9px + 1vw);
-          line-height: calc(5px + 1vw);
+          font-size: calc(9px + 1.6vw);
+          line-height: calc(5px + 1.6vw);
+        }
+        .instructionsSeparator {
+          background-color: white;
+          height: 2px;
+          width: 100%;
         }
         .instructionsSubtitle {
           font-weight: 500;
@@ -248,17 +255,25 @@
   <body>
     <div class="navigation">
       <div class="navProjectContainer" id="navProjectContainer">
-        <div class="navReturn" onclick="returnHome()">RETURN TO MAIN MENU</div>
+        <div class="navReturn" onclick="returnHome()">
+          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.2188 22.4219L13.0156 23.625C12.4688 24.1172 11.6484 24.1172 11.1562 23.625L0.546875 12.9609C0 12.4688 0 11.6484 0.546875 11.1562L11.1562 0.492188C11.6484 0 12.5234 0 13.0156 0.492188L14.2188 1.69531C14.7656 2.24219 14.7109 3.0625 14.2188 3.60938L7.60156 9.84375H23.3516C24.0625 9.84375 24.6641 10.4453 24.6641 11.1562V12.9062C24.6641 13.6719 24.0625 14.2188 23.3516 14.2188H7.60156L14.2188 20.5078C14.7109 21.0547 14.7656 21.875 14.2188 22.4219Z" fill="#004C97"/>
+          </svg>
+          <span style="display: flex; align-items: center;">RETURN TO MAIN MENU</span></div>
         <div class="navProjectTitle" id="navProjectTitle">PORTWATCH</div>
         <div class="navProjectDescription" id="navProjectDescription"></div>
-        <div class="navNext">
-          <span onclick="nextProject()">NEXT PROJECT</span>
+        <div class="navNext" onclick="nextProject()">
+          <span>NEXT PROJECT</span>
+          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.4453 1.69531L11.6484 0.492186C12.1953 -1.07571e-06 13.0156 -1.004e-06 13.5078 0.492187L24.1172 11.1562C24.6641 11.6484 24.6641 12.4688 24.1172 12.9609L13.5078 23.625C13.0156 24.1172 12.1406 24.1172 11.6484 23.625L10.4453 22.4219C9.89844 21.875 9.95313 21.0547 10.4453 20.5078L17.0625 14.2734L1.3125 14.2734C0.601564 14.2734 1.39125e-06 13.6719 1.4534e-06 12.9609L1.60639e-06 11.2109C1.67333e-06 10.4453 0.601564 9.89844 1.3125 9.89844L17.0625 9.89844L10.4453 3.60937C9.95313 3.0625 9.89844 2.24219 10.4453 1.69531Z" fill="#004C97"/>
+          </svg>
         </div>
       </div>
       <div class="background" id="background">
         <div class="instructions">
           <div class="instructionsChild">
             <span class="instructionsTitle">IMF DATA PRODUCTS</span>
+            <div class="instructionsSeparator"></div>
             <span class="instructionsSubtitle">TAP A GLOBE TO EXPLORE</span>
           </div>
         </div>
@@ -305,14 +320,13 @@
           src="${path}">
         </iframe>`;
 
-        a.style.height = "100%";
+        a.style.height = "95%";
         a.style.width = "100%";
         a.style.zIndex = 0;
         a.style.marginRight = "3%";
 
         projectIndex = index;
         console.log(projectIndex);
-        console.log(index);
       }
 
       function returnHome() {
@@ -339,6 +353,8 @@
         a.style.width = "0%";
         a.style.zIndex = 0;
         a.style.marginRight = "0%";
+
+        projectIndex = null;
       }
 
       function nextProject() {
@@ -347,8 +363,8 @@
         } else {
           projectIndex = 0;
         }
-        console.log(projectIndex);
 
+        console.log(projectIndex);
         zTitle.innerHTML = categorySpecs[projectIndex].title;
         zDesc.innerHTML = categorySpecs[projectIndex].htmlDescription;
         a.innerHTML = 
@@ -392,12 +408,12 @@
 
       const categorySpecs = [
         {
-          categoryStyle: "position: absolute; left: 0%",
+          categoryStyle: "position: absolute; left: 15%; top: 5%;",
           onClickFunction: "openPopUp('rgb(48, 174, 184)', 'PORTWATCH', 'Monitoring Trade Disruptions from Space', '<span>Using satellite-based vessel data and big data analytics, the PortWatch platform helps policymakers, analysts, and other public stakeholders assess the impact of disruptions to maritime trade. Users can simulate the potential indirect spillover effects of port disruptions to other countries in the maritime network and global supply chains.</span>', 'https://portwatch.imf.org/', 0)",
-          imageContainerStyle: "left: 20%; top: 10%",
+          imageContainerStyle: "",
           imageSource: "portwatch.png",
           imageWidth: "150%",
-          linkContainerStyle: "left: 80%; bottom: 100%; border-color: rgb(48, 174, 184);",
+          linkContainerStyle: "left: -30%; bottom: 100%; border-color: rgb(48, 174, 184);",
           title: "PORTWATCH",
           description: "Monitoring Trade Disruptions from Space",
           fill: "rgb(48, 174, 184)",
@@ -406,89 +422,90 @@
           index: 0
         },
         {
-          categoryStyle: "position: absolute; left: 35%; bottom: 65%;",
-          onClickFunction: "openPopUp('rgb(120, 189, 46)', 'IMF Data', '', '<span></span>', 'https://data.imf.org', 1)",
-          imageContainerStyle: "left: 20%; top: 10%",
-          imageSource: "nowhub.png",
-          imageWidth: "160%",
-          linkContainerStyle: "left: 80%; bottom: 120%; border-color: rgb(120, 189, 46);",
-          title: "IMF Data",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-          fill: "rgb(120, 189, 46)",
-          htmlDescription: "<span></span>",
-          link: "https://data.imf.org",
+          categoryStyle: "position: absolute; right: 15%; top: 5%;",
+          onClickFunction: "openPopUp('rgb(55, 154, 220)', 'Mario', 'The World’s Largest Statistical Sudoku', '<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>', 'global_trade_dashboard_v3.html', 1)",
+          imageContainerStyle: "",
+          imageSource: "mario.png",
+          imageWidth: "100%",
+          linkContainerStyle: "left: 65%; bottom: 110%; border-color: rgb(212, 58, 41);",
+          title: "Mario",
+          description: "The World’s Largest Statistical Sudoku",
+          fill: "rgb(212, 58, 41)",
+          htmlDescription: "<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>",
+          link: "global_trade_dashboard_v3.html",
           index: 1
         },
         {
-          categoryStyle: "position: absolute; left: 60%; bottom: 65%;",
-          onClickFunction: "openPopUp('rgb(212, 58, 41)', 'GEOPULSE', 'Track, Analyze, and Respond to Economic Risk', '<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>', 'https://wgbcamp.github.io/geopulse-dev/', 2)",
-          imageContainerStyle: "left: 30%; top: 10%; overflow: visible;",
-          imageSource: "geopulse.png",
-          imageWidth: "170%",
-          linkContainerStyle: "left: 10%; bottom: 65%; border-color: rgb(212, 58, 41);",
-          title: "GEOPULSE",
-          description: "Track, Analyze, and Respond to Economic Risk",
-          fill: "rgb(212, 58, 41)",
-          htmlDescription: "<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>",
-          link: "https://wgbcamp.github.io/geopulse-dev/",
+          categoryStyle: "position: absolute; left: 43.3%; top: 30%;",
+          onClickFunction: "openPopUp('rgb(120, 189, 46)', 'IMF Data', '', '<span></span>', 'https://data.imf.org', 2)",
+          imageContainerStyle: "",
+          imageSource: "imfdata.png",
+          imageWidth: "110%",
+          linkContainerStyle: "left: 25%; bottom: 35%; border-color: rgb(120, 189, 46);",
+          title: "IMF Data",
+          description: "Your gateway to the IMF's global economic data",
+          fill: "rgb(120, 189, 46)",
+          htmlDescription: "<span></span>",
+          link: "https://data.imf.org",
           index: 2
         },
         {
-          categoryStyle: "position: absolute; left: 15%; bottom: 40%;",
-          onClickFunction: "openPopUp('rgb(248, 200, 51)', 'StatGPT', 'AI for Official Statistics', '<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>', 'https://portal.statgpt.org/', 3)",
-          imageContainerStyle: "left: 20%; top: 0%%",
+          categoryStyle: "position: absolute; left: 5%; bottom: 35%;",
+          onClickFunction: "openPopUp('rgb(248, 200, 51)', 'StatGPT', 'AI for Official Statistics', '<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>', 'https://portal.statgpt.org/', 3)",
+          imageContainerStyle: "",
           imageSource: "statgpt.png",
-          imageWidth: "150%",
-          linkContainerStyle: "left: -15%; bottom: 95%; border-color: rgb(248, 200, 51);",
+          imageWidth: "100%",
+          linkContainerStyle: "left: -20%; bottom: 50%; border-color: rgb(248, 200, 51);",
           title: "StatGPT",
           description: "AI for Official Statistics",
           fill: "rgb(248, 200, 51)",
-          htmlDescription: "<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>'",
+          htmlDescription: "<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>",
           link: "https://portal.statgpt.org/",
           index: 3
         },
         {
-          categoryStyle: "position: absolute; left: 0%; bottom: 15%;",
-          onClickFunction: "openPopUp('rgb(221, 91, 32)', 'Compilers Hubs', 'Connect with the International Community of Macroeconomic Statisticians', '<span>The International Community of Macroeconomic Statisticians (ICMStat) is dedicated to advancing statistical standards and championing the value of high quality statistics. Leverage the Hub—an interactive digital platform where members access international statistical manuals, training materials, and tools, and engage with peers for collaboration and advice.</span>', 'https://compilershub.imf.org/home', 4)",
-          imageContainerStyle: "left: 20%; top: 10%",
+          categoryStyle: "position: absolute; right: 6%; bottom: 35%;",
+          onClickFunction: "openPopUp('rgb(212, 58, 41)', 'GEOPULSE', 'Track, Analyze, and Respond to Economic Risk', '<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>', 'https://wgbcamp.github.io/geopulse-dev/', 4)",
+          imageContainerStyle: "overflow: visible;",
+          imageSource: "geopulse.png",
+          imageWidth: "170%",
+          linkContainerStyle: "left: 60%; bottom: 50%; border-color: rgb(55, 154, 220);",
+          title: "GEOPULSE",
+          description: "Track, Analyze, and Respond to Economic Risk",
+          fill: "rgb(55, 154, 220)",
+          htmlDescription: "<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>",
+          link: "https://wgbcamp.github.io/geopulse-dev/",
+          index: 4
+        },
+
+        {
+          categoryStyle: "position: absolute; left: 25%; bottom: 10%;",
+          onClickFunction: "openPopUp('rgb(221, 91, 32)', 'Compilers Hubs', 'Connect with the International Community of Macroeconomic Statisticians', '<span>The International Community of Macroeconomic Statisticians (ICMStat) is dedicated to advancing statistical standards and championing the value of high quality statistics. Leverage the Hub—an interactive digital platform where members access international statistical manuals, training materials, and tools, and engage with peers for collaboration and advice.</span>', 'https://compilershub.imf.org/home', 5)",
+          imageContainerStyle: "",
           imageSource: "compilershub.png",
-          imageWidth: "180%",
-          linkContainerStyle: "left: 80%; bottom: 90%; border-color: rgb(221, 91, 32);",
-          title: "Compilers Hub",
+          imageWidth: "100%",
+          linkContainerStyle: "right: 25%; bottom: 60%; border-color: rgb(221, 91, 32);",
+          title: "Compilers Hubs",
           description: "Connect with the International Community of Macroeconomic Statisticians",
           fill: "rgb(221, 91, 32)",
           htmlDescription: "<span>The International Community of Macroeconomic Statisticians (ICMStat) is dedicated to advancing statistical standards and championing the value of high quality statistics. Leverage the Hub—an interactive digital platform where members access international statistical manuals, training materials, and tools, and engage with peers for collaboration and advice.</span>",
           link: "https://compilershub.imf.org/home",
-          index: 4
-        },
-        {
-          categoryStyle: "position: absolute; left: 30%; bottom: 15%;",
-          onClickFunction: "openPopUp('rgb(31, 26, 95)', 'Talk2Manuals', 'Talk to the Statistical Standards', '<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>', 'https://talk2manuals.imf.org/', 5)",
-          imageContainerStyle: "left: 20%; top: 15%",
-          imageSource: "talk2manuals.png",
-          imageWidth: "150%",
-          linkContainerStyle: "left: 70%; bottom: 110%; border-color: rgb(31, 26, 95);",
-          title: "Talk2Manuals",
-          description: "Talk to the Statistical Standards",
-          fill: "rgb(31, 26, 95)",
-          htmlDescription: "<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>",
-          link: "https://talk2manuals.imf.org/",
           index: 5
         },
         {
-          categoryStyle: "position: absolute; left: 60%; bottom: 20%;",
-          onClickFunction: "openPopUp('rgb(55, 154, 220)', 'Mario', 'The World’s Largest Statistical Sudoku', '<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>', 'global_trade_dashboard_v3.html', 6)",
-          imageContainerStyle: "left: 20%; top: 0%",
-          imageSource: "mario.png",
-          imageWidth: "200%",
-          linkContainerStyle: "left: -20%; bottom: 100%; border-color: rgb(55, 154, 220);",
-          title: "Mario",
-          description: "The World’s Largest Statistical Sudoku",
-          fill: "rgb(55, 154, 220)",
-          htmlDescription: "<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>",
-          link: "global_trade_dashboard_v3.html",
+          categoryStyle: "position: absolute; right: 25%; bottom: 10%;",
+          onClickFunction: "openPopUp('rgb(31, 26, 95)', 'Talk2Manuals', 'Talk to the Statistical Standards', '<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>', 'https://talk2manuals.imf.org/', 6)",
+          imageContainerStyle: "",
+          imageSource: "talk2manuals.png",
+          imageWidth: "110%",
+          linkContainerStyle: "left: 65%; bottom: 60%; border-color: rgb(31, 26, 95);",
+          title: "Talk2Manuals",
+          description: "Talk to the Statistical Standards",
+          fill: "rgb(31, 26, 95)",
+          htmlDescription: "<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>",
+          link: "https://talk2manuals.imf.org/",
           index: 6
-        },
+        }
       ];
 
       function spawnCategories() {
@@ -514,7 +531,7 @@
           document.getElementById("background").appendChild(node);
         });
         document.querySelectorAll('.category').forEach((e) => {
-          e.style.animationDelay = (Math.random() * 2.5) + 's';
+          e.style.animationDelay = (Math.random() * 3) + 's';
         })
       }
 
