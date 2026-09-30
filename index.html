@@ -100,6 +100,7 @@
           height: calc(20px + 12vw);
           width: calc(20px + 12vw);
           animation: bounce 7s ease-in-out 0s infinite normal forwards;
+          cursor: pointer;
         }
         .imageContainer {
           position: relative;
@@ -115,8 +116,8 @@
         }
         .linkContainer {
           position: relative;
-          height: calc(20px + 7vw);
-          width: calc(20px + 7vw);
+          height: calc(24px + 7vw);
+          width: calc(24px + 7vw);
           border-radius: 50%;
           border: calc(2px + 0.4vw) solid;
           overflow: hidden;
@@ -124,7 +125,6 @@
           justify-content: center;
           align-items: center;
           background-color: white;
-          cursor: pointer;
           text-align: center;
         }
         .linkWidthContainer {
@@ -137,6 +137,7 @@
         .title {
           font-weight: bold;
           font-size: calc(4px + 0.7vw);
+          width: 80%;
         }
         .description {
           font-size: calc(3px + 0.4vw);
@@ -386,30 +387,9 @@
         }
       }
 
-      function openPopUp(color, title, description, detailedDescription, link, index) {
-        x.innerHTML = 
-          `<div class="popUpParent" style="background-color: ${color};">
-              <div class="popUpChild">
-                <div class="popUpContent">
-                  <div class="dot" style="background-color: ${color};"></div>
-                  <span class="popUpTitle">${title}</span>
-                  <span class="popUpDescription">${description}</span>
-                  <div class="button" style="background-color: ${color};">
-                    <div onclick="enterNavigation('${title}', '${detailedDescription}', '${link}', ${index})">Explore</div>
-                  </div>
-                </div>
-              </div>
-            </div>`;
-        x.style.zIndex = 1;
-        x.style.height = '100%';
-        x.style.opacity = 1;
-        y.style.filter = 'blur(8px)';
-      }
-
       const categorySpecs = [
         {
           categoryStyle: "position: absolute; left: 15%; top: 5%;",
-          onClickFunction: "openPopUp('rgb(48, 174, 184)', 'PORTWATCH', 'Monitoring Trade Disruptions from Space', '<span>Using satellite-based vessel data and big data analytics, the PortWatch platform helps policymakers, analysts, and other public stakeholders assess the impact of disruptions to maritime trade. Users can simulate the potential indirect spillover effects of port disruptions to other countries in the maritime network and global supply chains.</span>', 'https://portwatch.imf.org/', 0)",
           imageContainerStyle: "",
           imageSource: "portwatch.png",
           imageWidth: "150%",
@@ -418,12 +398,11 @@
           description: "Monitoring Trade Disruptions from Space",
           fill: "rgb(48, 174, 184)",
           htmlDescription: "<span>Using satellite-based vessel data and big data analytics, the PortWatch platform helps policymakers, analysts, and other public stakeholders assess the impact of disruptions to maritime trade. Users can simulate the potential indirect spillover effects of port disruptions to other countries in the maritime network and global supply chains.</span>",
-          link: "https://portwatch.imf.org/'",
+          link: "https://portwatch.imf.org/",
           index: 0
         },
         {
           categoryStyle: "position: absolute; right: 15%; top: 5%;",
-          onClickFunction: "openPopUp('rgb(55, 154, 220)', 'Mario', 'The World’s Largest Statistical Sudoku', '<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>', 'global_trade_dashboard_v3.html', 1)",
           imageContainerStyle: "",
           imageSource: "mario.png",
           imageWidth: "100%",
@@ -437,35 +416,32 @@
         },
         {
           categoryStyle: "position: absolute; left: 43.3%; top: 30%;",
-          onClickFunction: "openPopUp('rgb(120, 189, 46)', 'IMF Data', '', '<span></span>', 'https://data.imf.org', 2)",
           imageContainerStyle: "",
-          imageSource: "imfdata.png",
-          imageWidth: "110%",
+          imageSource: "Trade Mapper.png",
+          imageWidth: "180%",
           linkContainerStyle: "left: 25%; bottom: 35%; border-color: rgb(120, 189, 46);",
-          title: "IMF Data",
-          description: "Your gateway to the IMF's global economic data",
+          title: "Trade Mapper",
+          description: "Tracking Global Trade Growth",
           fill: "rgb(120, 189, 46)",
-          htmlDescription: "<span></span>",
-          link: "https://data.imf.org",
+          htmlDescription: "<p>Global trade is constantly evolving. Explore how merchandise exports are growing across regions and over time, and discover which economies are driving global trade growth. The Trade Mapper provides an interactive view of the trends and dynamics shaping international trade in goods. It also shows how trading partnerships evolve and the shares of imports and exports across countries.</p><p>Data source: International Trade in Goods by Partner Country (IMTS, formerly DOTS), available on data.imf.org.</p>",
+          link: "https://datacommons.shinyapps.io/world-trade-mapper/",
           index: 2
         },
         {
           categoryStyle: "position: absolute; left: 5%; bottom: 35%;",
-          onClickFunction: "openPopUp('rgb(248, 200, 51)', 'StatGPT', 'AI for Official Statistics', '<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>', 'https://portal.statgpt.org/', 3)",
           imageContainerStyle: "",
-          imageSource: "statgpt.png",
-          imageWidth: "100%",
+          imageSource: "FDI Mapper.jpeg",
+          imageWidth: "150%",
           linkContainerStyle: "left: -20%; bottom: 50%; border-color: rgb(248, 200, 51);",
-          title: "StatGPT",
-          description: "AI for Official Statistics",
+          title: "FDI Mapper",
+          description: "Investment Across Borders",
           fill: "rgb(248, 200, 51)",
-          htmlDescription: "<p>As AI becomes increasingly integrated into economic work, trust in the underlying data matters more than ever. StatGPT demonstrates how natural language AI can provide direct access to official statistics while ensuring the accuracy and integrity of published figures.</p><br /><p>Test the platform. Share your feedback. Help shape what comes next.</p>",
+          htmlDescription: "<p>Over the past three decades, global foreign direct investment (FDI) has expanded substantially. In recent years. The growth has been particularly rapid in emerging markets and developing economies. Beyond cross-border trade in goods and services, economies have become connected through direct investment, creating complex production networks that knit together supply chains across continents.  Use the FDI Mapper to explore these investment linkages and see how economies are connected around the world.</p><p>Data source: Direct Investment Positions by Counterpart Economy (formerly CDIS), available on data.imf.org.</p>",
           link: "https://portal.statgpt.org/",
           index: 3
         },
         {
           categoryStyle: "position: absolute; right: 6%; bottom: 35%;",
-          onClickFunction: "openPopUp('rgb(212, 58, 41)', 'GEOPULSE', 'Track, Analyze, and Respond to Economic Risk', '<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>', 'https://wgbcamp.github.io/geopulse-dev/', 4)",
           imageContainerStyle: "overflow: visible;",
           imageSource: "geopulse.png",
           imageWidth: "170%",
@@ -480,7 +456,6 @@
 
         {
           categoryStyle: "position: absolute; left: 25%; bottom: 10%;",
-          onClickFunction: "openPopUp('rgb(221, 91, 32)', 'Compilers Hubs', 'Connect with the International Community of Macroeconomic Statisticians', '<span>The International Community of Macroeconomic Statisticians (ICMStat) is dedicated to advancing statistical standards and championing the value of high quality statistics. Leverage the Hub—an interactive digital platform where members access international statistical manuals, training materials, and tools, and engage with peers for collaboration and advice.</span>', 'https://compilershub.imf.org/home', 5)",
           imageContainerStyle: "",
           imageSource: "compilershub.png",
           imageWidth: "100%",
@@ -494,15 +469,14 @@
         },
         {
           categoryStyle: "position: absolute; right: 25%; bottom: 10%;",
-          onClickFunction: "openPopUp('rgb(31, 26, 95)', 'Talk2Manuals', 'Talk to the Statistical Standards', '<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>', 'https://talk2manuals.imf.org/', 6)",
           imageContainerStyle: "",
-          imageSource: "talk2manuals.png",
-          imageWidth: "110%",
+          imageSource: "Portfolio Investment Mapper.png",
+          imageWidth: "180%",
           linkContainerStyle: "left: 65%; bottom: 60%; border-color: rgb(31, 26, 95);",
-          title: "Talk2Manuals",
-          description: "Talk to the Statistical Standards",
+          title: "Portfolio Investment Mapper",
+          description: "Following Capital Around the Globe  ",
           fill: "rgb(31, 26, 95)",
-          htmlDescription: "<span>An AI-powered tool that makes navigating published IMF statistical manuals simple, fast, and reliable.</span><br /><ul><li>Accurate Answers: responses fully grounded in IMF statistical standards like Balance of Payments and International Investment Position Manual (BPM), System of National Accounts (SNA), CPI, etc.</li><li>Trusted References: direct links to the exact manual for transparency</li><li>Language Flexibility: supports French, Spanish, and more</li><li>Simplified Access: turns bulky paper manuals into an easy, conversational experience.</li></ul>",
+          htmlDescription: "<p>Portfolio investments connect financial markets across borders. From pension funds and insurance companies to investment funds, investors hold securities around the world to diversify risk and seek opportunities. Explore the CPIS to see how countries are linked through cross-border portfolio investment and how global investment holdings are distributed across economies.</p><p>Data source: Coordinated Portfolio Investment Survey (CPIS), covering more than 80 economies and available on data.imf.org.</p>",
           link: "https://talk2manuals.imf.org/",
           index: 6
         }
@@ -512,7 +486,7 @@
         categorySpecs.forEach((e) => {
           const node = document.createElement("div");
           node.innerHTML =
-          `<div class="category" style="${e.categoryStyle}" onclick="${e.onClickFunction}">
+          `<div class="category" style="${e.categoryStyle}" onclick='enterNavigation("${e.title}", "${e.htmlDescription}", "${e.link}", ${e.index})'>
             <div class="imageContainer" style="${e.imageContainerStyle}">
               <img src="${e.imageSource}" width="${e.imageWidth}">
             </div>
