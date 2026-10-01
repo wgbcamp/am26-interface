@@ -7,7 +7,7 @@
     <title>AM26 Interface</title>
     <style>
       @font-face {
-        src: url("Avenir\ Next.ttc") format("ttc");
+        src: url("fonts/Avenir\ Next.ttc") format("ttc");
         font-family: "Avenir Next", sans-serif;
         font-weight: normal;
         font-style: normal;
@@ -78,6 +78,10 @@
           font-size: calc(3px + 0.6vw);
           height: 100%;
         }
+        .navProjectQRCode {
+          width: 150px;
+          padding-bottom: 32px;
+        }
         .navNext {
           font-weight: bold;
           display: flex;
@@ -89,7 +93,7 @@
         .background {
           height: 100%;
           width: 100%;
-          background-image: linear-gradient(rgba(33, 74, 149, 0.6), rgba(33, 74, 149, 0.6)), url("backgroundImage.png");
+          background-image: linear-gradient(rgba(33, 74, 149, 0.6), rgba(33, 74, 149, 0.6)), url("misc-assets/backgroundImage.png");
           background-size: contain;
           background-color: rgb(33, 74, 149);
           position: relative;
@@ -263,6 +267,7 @@
           <span style="display: flex; align-items: center;">RETURN TO MAIN MENU</span></div>
         <div class="navProjectTitle" id="navProjectTitle">PORTWATCH</div>
         <div class="navProjectDescription" id="navProjectDescription"></div>
+        <img class="navProjectQRCode" id="navProjectQRCode">
         <div class="navNext" onclick="nextProject()">
           <span>NEXT PROJECT</span>
           <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -291,9 +296,10 @@
       var z = document.getElementById("navProjectContainer");
       var zTitle = document.getElementById("navProjectTitle");
       var zDesc = document.getElementById("navProjectDescription");
+      var zQR = document.getElementById("navProjectQRCode");
       var a = document.getElementById("iframe");
 
-      function enterNavigation(title, description, path, index) {
+      function enterNavigation(title, description, path, index, qrCode) {
         z.style.width = "20%";
         z.style.overflow = "visible";
         z.style.paddingRight = "80px";
@@ -301,6 +307,7 @@
 
         zTitle.innerHTML = title;
         zDesc.innerHTML = description;
+        zQR.src = qrCode;
 
         y.style.height = "0%";
         y.style.width = "0%";
@@ -338,6 +345,7 @@
 
         zTitle.innerHTML = "";
         zDesc.innerHTML = "";
+        zQR.src = "";
 
         y.style.height = "100%";
         y.style.width = "100%";
@@ -368,6 +376,7 @@
         console.log(projectIndex);
         zTitle.innerHTML = categorySpecs[projectIndex].title;
         zDesc.innerHTML = categorySpecs[projectIndex].htmlDescription;
+        zQR.src = categorySpecs[projectIndex].qrCode;
         a.innerHTML = 
         `<iframe
           id="inlineFrameExample"
@@ -391,7 +400,7 @@
         {
           categoryStyle: "position: absolute; left: 15%; top: 5%;",
           imageContainerStyle: "",
-          imageSource: "portwatch.png",
+          imageSource: "project-images/portwatch.png",
           imageWidth: "150%",
           linkContainerStyle: "left: -30%; bottom: 100%; border-color: rgb(48, 174, 184);",
           title: "PortWatch",
@@ -399,25 +408,27 @@
           fill: "rgb(48, 174, 184)",
           htmlDescription: "<span>Using satellite-based vessel data and big data analytics, the PortWatch platform helps policymakers, analysts, and other public stakeholders assess the impact of disruptions to maritime trade. Users can simulate the potential indirect spillover effects of port disruptions to other countries in the maritime network and global supply chains.</span>",
           link: "https://portwatch.imf.org/",
+          qrCode: "qr-codes/portWatch-QR.png",
           index: 0
         },
         {
           categoryStyle: "position: absolute; right: 15%; top: 5%;",
           imageContainerStyle: "",
-          imageSource: "mario.png",
+          imageSource: "project-images/mario.png",
           imageWidth: "100%",
           linkContainerStyle: "left: 65%; bottom: 110%; border-color: rgb(212, 58, 41);",
           title: "MARIO",
           description: "The World’s Largest Statistical Sudoku",
           fill: "rgb(212, 58, 41)",
           htmlDescription: "<span>The MARIO project (Multi Analytical Regional Input Output model) is a large scale IMF initiative that provides a detailed, global view of how economies are interconnected. It covers 200+ economies and hundreds of industries and products, spans multiple decades, and maps global value chains—showing who produces what, where, and for whom. It also quantifies cross border economic spillovers and links economic activity to environmental and social impacts, enabling deeper analysis of global economic dynamics.</span>",
-          link: "global_trade_dashboard_v3.html",
+          link: "misc-assets/global_trade_dashboard_v3.html",
+          qrCode: "",
           index: 1
         },
         {
           categoryStyle: "position: absolute; left: 43.3%; top: 30%;",
           imageContainerStyle: "",
-          imageSource: "Trade Mapper.png",
+          imageSource: "project-images/Trade Mapper.png",
           imageWidth: "180%",
           linkContainerStyle: "left: 25%; bottom: 35%; border-color: rgb(120, 189, 46);",
           title: "Trade Mapper",
@@ -425,12 +436,13 @@
           fill: "rgb(120, 189, 46)",
           htmlDescription: "<p>Global trade is constantly evolving. Explore how merchandise exports are growing across regions and over time, and discover which economies are driving global trade growth. The Trade Mapper provides an interactive view of the trends and dynamics shaping international trade in goods. It also shows how trading partnerships evolve and the shares of imports and exports across countries.</p><p>Data source: International Trade in Goods by Partner Country (IMTS, formerly DOTS), available on data.imf.org.</p>",
           link: "https://datacommons.shinyapps.io/world-trade-mapper/",
+          qrCode: "qr-codes/tradeMapper-QR.png",
           index: 2
         },
         {
           categoryStyle: "position: absolute; left: 5%; bottom: 35%;",
           imageContainerStyle: "",
-          imageSource: "FDI Mapper.jpeg",
+          imageSource: "project-images/FDI Mapper.jpeg",
           imageWidth: "150%",
           linkContainerStyle: "left: -20%; bottom: 50%; border-color: rgb(248, 200, 51);",
           title: "FDI Mapper",
@@ -438,26 +450,28 @@
           fill: "rgb(248, 200, 51)",
           htmlDescription: "<p>Over the past three decades, global foreign direct investment (FDI) has expanded substantially. In recent years. The growth has been particularly rapid in emerging markets and developing economies. Beyond cross-border trade in goods and services, economies have become connected through direct investment, creating complex production networks that knit together supply chains across continents.  Use the FDI Mapper to explore these investment linkages and see how economies are connected around the world.</p><p>Data source: Direct Investment Positions by Counterpart Economy (formerly CDIS), available on data.imf.org.</p>",
           link: "https://datacommons.shinyapps.io/fdi-explorer/",
+          qrCode: "qr-codes/fdiMapper-QR.png",
           index: 3
         },
         {
           categoryStyle: "position: absolute; right: 6%; bottom: 35%;",
-          imageContainerStyle: "overflow: visible;",
-          imageSource: "geopulse.png",
-          imageWidth: "170%",
+          imageContainerStyle: "overflow: visible; padding-left: 12px; padding-top: 3px",
+          imageSource: "project-images/geopulse.png",
+          imageWidth: "168%",
           linkContainerStyle: "left: 60%; bottom: 50%; border-color: rgb(55, 154, 220);",
           title: "GeoPulse",
           description: "Track, Analyze, and Respond to Economic Risk",
           fill: "rgb(55, 154, 220)",
-          htmlDescription: "<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><p>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</p></div>",
+          htmlDescription: "<div><p>IMF GeoPulse is a geospatial platform that monitors physical risks to the economy, people, and our environment. The frequency and severity of damages from natural disasters such as floods, hurricanes, and wildfires have been increasing over time resulting in billions of dollars damage to economies and loss of human lives. As impacts often ripple through economies, including the financial systems, public finances, and trade, the first-order effects of most of these risks are highly localized.</p><br /><span>GeoPulse provides high-resolution geospatial data on hazards, exposures, and risks to help economies prepare for, respond to, and recover from natural disasters. It is state-of-the-art platform translating complex and big geospatial data into actionable insights for policy analysis, financing, and resilience planning now and for the future.</span></div>",
           link: "https://wgbcamp.github.io/geopulse-dev/",
+          qrCode: "qr-codes/geoPulse-QR.png",
           index: 4
         },
 
         {
           categoryStyle: "position: absolute; left: 25%; bottom: 10%;",
           imageContainerStyle: "",
-          imageSource: "compilershub.png",
+          imageSource: "project-images/compilershub.png",
           imageWidth: "100%",
           linkContainerStyle: "right: 25%; bottom: 60%; border-color: rgb(221, 91, 32);",
           title: "Compilers Hubs",
@@ -465,12 +479,13 @@
           fill: "rgb(221, 91, 32)",
           htmlDescription: "<span>The International Community of Macroeconomic Statisticians (ICMStat) is dedicated to advancing statistical standards and championing the value of high quality statistics. Leverage the Hub—an interactive digital platform where members access international statistical manuals, training materials, and tools, and engage with peers for collaboration and advice.</span>",
           link: "https://compilershub.imf.org/home",
+          qrCode: "qr-codes/compilersHub-QR.png",
           index: 5
         },
         {
           categoryStyle: "position: absolute; right: 25%; bottom: 10%;",
           imageContainerStyle: "",
-          imageSource: "Portfolio Investment Mapper.png",
+          imageSource: "project-images/Portfolio Investment Mapper.png",
           imageWidth: "180%",
           linkContainerStyle: "left: 65%; bottom: 60%; border-color: rgb(31, 26, 95);",
           title: "Portfolio Investment Mapper",
@@ -478,6 +493,7 @@
           fill: "rgb(31, 26, 95)",
           htmlDescription: "<p>Portfolio investments connect financial markets across borders. From pension funds and insurance companies to investment funds, investors hold securities around the world to diversify risk and seek opportunities. Explore the CPIS to see how countries are linked through cross-border portfolio investment and how global investment holdings are distributed across economies.</p><p>Data source: Coordinated Portfolio Investment Survey (CPIS), covering more than 80 economies and available on data.imf.org.</p>",
           link: "https://datacommons.shinyapps.io/cpis-explorer/",
+          qrCode: "qr-codes/portfolioInvestmentMapper-QR.png",
           index: 6
         }
       ];
@@ -486,7 +502,7 @@
         categorySpecs.forEach((e) => {
           const node = document.createElement("div");
           node.innerHTML =
-          `<div class="category" style="${e.categoryStyle}" onclick='enterNavigation("${e.title}", "${e.htmlDescription}", "${e.link}", ${e.index})'>
+          `<div class="category" style="${e.categoryStyle}" onclick='enterNavigation("${e.title}", "${e.htmlDescription}", "${e.link}", ${e.index}, "${e.qrCode}")'>
             <div class="imageContainer" style="${e.imageContainerStyle}">
               <img src="${e.imageSource}" width="${e.imageWidth}">
             </div>
