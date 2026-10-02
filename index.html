@@ -25,10 +25,27 @@
           transform: translateY(0%);
         }
       }
+      @keyframes rotate {
+        0% {
+          rotate: 0deg;
+        }
+        100% {
+          rotate: 360deg;
+        }
+      }
+      .loadingAnimation {
+        animation: rotate 2.5s forwards ease-in-out infinite;
+        border-style: dotted;
+        border-color: black;
+        border-width: 15px;
+        border-radius: 100%;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        opacity: 0%;
+      }
         html {
           background-color: rgb(255, 255, 255);
-          height: 100%;
-          width: 100%;
           font-family: "Avenir Next", sans-serif;
           margin: 0;
           display: flex;
@@ -41,6 +58,7 @@
           max-width: calc(100vh * 16 / 9);
           max-height: 100vh;
           aspect-ratio: 16 / 9;
+          margin: 0;
         }
         a {
           text-decoration: none;
@@ -53,13 +71,16 @@
           display: flex;
           align-items: center;
           justify-content: end;
+          position: absolute;
+          z-index: -1;
         }
         .navProjectContainer {
           display: flex;
           flex-direction: column;
           height: 90%;
-          width: 0%;
-          overflow: hidden;
+          width: 20%;
+          padding-right: 80px;
+          padding-left: 30px;
         }
         .navReturn {
           padding-bottom: 35%;
@@ -96,8 +117,8 @@
           background-image: linear-gradient(rgba(33, 74, 149, 0.6), rgba(33, 74, 149, 0.6)), url("misc-assets/backgroundImage.png");
           background-size: contain;
           background-color: rgb(33, 74, 149);
-          position: relative;
-          transition: all 0.2s ease-in-out;
+          position: absolute;
+          transition: opacity 0.5s ease-in-out;
         }
         .category {
           position: absolute;
@@ -153,61 +174,10 @@
           width: calc(3px + 1vw);
           height: calc(3px + 1vw);
         }
-        .popUpBackground {
-          position: fixed;
-          top: 0;
-          left: 0;
-          z-index: -5;
-          height: 0;
-          width: 100%;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: rgba(0, 15, 46, 0.7);
-          font-size: 20px;
-          transition: opacity 0.1s ease-in-out;
-          opacity: 0;
-        }
-        .popUpParent {
-          height: 375px;
-          width: 575px;
-          border-radius: 25px;
-          display: flex;
-          align-items: end;
-          overflow: hidden;
-          box-shadow: 3px 4px 10px 5px rgba(0,0,0, 0.3);
-
-        }
-        .popUpChild {
-          height: 98%;
-          width: 100%;
-          background-color: white;
-          border-top-left-radius: 14px;
-          border-top-right-radius: 14px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        .popUpContent {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          max-width: 85%;
-          gap: 30px;
-          text-align: center;
-        }
         .dot {
           border-radius: 100%;
           height: 18px;
           width: 18px;
-        }
-        .popUpTitle {
-          font-weight: bold;
-          color: rgb(23, 27, 96);
-          font-size: 40px;
         }
         .button {
           color: white;
@@ -249,16 +219,38 @@
           font-size: calc(10px + 0.3vw);
         }
         .iframe {
-          height: 0%;
-          width: 0%;
+          height: 100%;
+          width: 100%;
           position: relative;
-          z-index: 1;
+          z-index: -2;
+          opacity: 0%;
+          transition: opacity 0.5s ease-in-out;
+          border: 1;
         }
-
+        .iframeContainer {
+          height: 95%;
+          width: 100%;
+          position: relative;
+          z-index: -1;
+          margin-right: 3%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
     </style>
 </head>
   <body>
-    <div class="navigation">
+    <div class="background" id="background">
+      <div class="instructions">
+        <div class="instructionsChild">
+          <span class="instructionsTitle">IMF DATA PRODUCTS</span>
+          <div class="instructionsSeparator"></div>
+          <span class="instructionsSubtitle">TAP A GLOBE TO EXPLORE</span>
+        </div>
+      </div>
+    </div>
+    <div class="navigation" id="navigation">
       <div class="navProjectContainer" id="navProjectContainer">
         <div class="navReturn" onclick="returnHome()">
           <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -275,98 +267,87 @@
           </svg>
         </div>
       </div>
-      <div class="background" id="background">
-        <div class="instructions">
-          <div class="instructionsChild">
-            <span class="instructionsTitle">IMF DATA PRODUCTS</span>
-            <div class="instructionsSeparator"></div>
-            <span class="instructionsSubtitle">TAP A GLOBE TO EXPLORE</span>
-          </div>
-        </div>
+      <div class="iframeContainer" id="iframeContainer">
+        <div class="loadingAnimation" id="loadingAnimation"></div>
+        <!-- <div class="iframe" id="iframe"></div> -->
+        <iframe
+          id="iframe"
+          class="iframe"
+          width="100%"
+          height="100%"
+          src="">
+        </iframe>
       </div>
-      <div class="iframe" id="iframe"></div>
     </div>
-    <div class="popUpBackground" id="popUpBackground" onclick="closePopUp(event.target.id)"></div>
     <script>
       
       var projectIndex = null;
 
-      var x = document.getElementById("popUpBackground");
+      var x = document.getElementById("navigation");
       var y = document.getElementById("background");
       var z = document.getElementById("navProjectContainer");
       var zTitle = document.getElementById("navProjectTitle");
       var zDesc = document.getElementById("navProjectDescription");
       var zQR = document.getElementById("navProjectQRCode");
       var a = document.getElementById("iframe");
+      var b = document.getElementById("iframeContainer");
+      var c = document.getElementById("loadingAnimation");
+
+      a.addEventListener('load', (event) => {
+        c.style.display = "none";
+        setTimeout(() => {
+          c.style.opacity = "100%";
+          a.style.opacity = "100%";
+        }, 250);
+      })
 
       function enterNavigation(title, description, path, index, qrCode) {
-        z.style.width = "20%";
-        z.style.overflow = "visible";
-        z.style.paddingRight = "80px";
-        z.style.paddingLeft = "30px";
+        
+        y.style.opacity = "0%";
 
         zTitle.innerHTML = title;
         zDesc.innerHTML = description;
         zQR.src = qrCode;
+        setTimeout(() => {
+          
 
-        y.style.height = "0%";
-        y.style.width = "0%";
-        y.style.overflow = "hidden";
-        y.style.zIndex = -1;
+          y.style.zIndex = -1;
+        
+          x.style.zIndex = 0;
 
-        x.style.zIndex = -1;
-        x.style.height = 0;
-        x.style.opacity = 0;
-        y.style.filter = 'blur(0px)';
+          a.src = path;
+          a.style.opacity = "65%";
+          c.style.opacity = "100%";
 
-        a.innerHTML = 
-        `<iframe
-          id="inlineFrameExample"
-          title="Inline Frame Example"
-          width="100%"
-          height="100%"
-          src="${path}">
-        </iframe>`;
+          b.style.height = "95%";
+          b.style.width = "100%";
+          b.style.zIndex = 1;
+          b.style.marginRight = "3%";
 
-        a.style.height = "95%";
-        a.style.width = "100%";
-        a.style.zIndex = 0;
-        a.style.marginRight = "3%";
+          c.style.display = "unset";
 
-        projectIndex = index;
-        console.log(projectIndex);
+          projectIndex = index;
+          console.log(projectIndex);
+        }, 500);
       }
 
       function returnHome() {
-        z.style.width = "0%";
-        z.style.overflow = "hidden";
-        z.style.paddingRight = "0";
-        z.style.paddingLeft = "0";
 
-        zTitle.innerHTML = "";
-        zDesc.innerHTML = "";
-        zQR.src = "";
-
-        y.style.height = "100%";
-        y.style.width = "100%";
-        y.style.overflow = "visible";
         y.style.zIndex = 1;
+        y.style.opacity = "100%";
+        
+        x.style.zIndex = 0;
 
-        x.style.zIndex = -1;
-        x.style.height = 0;
-        x.style.opacity = 0;
-        y.style.filter = 'blur(0px)';
-
-        a.innerHTML = ``;
-        a.style.height = "0%";
-        a.style.width = "0%";
-        a.style.zIndex = 0;
-        a.style.marginRight = "0%";
+        b.style.zIndex = 0;
 
         projectIndex = null;
       }
 
       function nextProject() {
+        c.style.display = "unset";
+        a.style.opacity = "65%";
+        c.style.opacity = "100%";
+
         if (projectIndex < categorySpecs.length - 1) {
           projectIndex++;
         } else {
@@ -377,23 +358,7 @@
         zTitle.innerHTML = categorySpecs[projectIndex].title;
         zDesc.innerHTML = categorySpecs[projectIndex].htmlDescription;
         zQR.src = categorySpecs[projectIndex].qrCode;
-        a.innerHTML = 
-        `<iframe
-          id="inlineFrameExample"
-          title="Inline Frame Example"
-          width="100%"
-          height="100%"
-          src="${categorySpecs[projectIndex].link}">
-        </iframe>`;
-      }
-      
-      function closePopUp(e) {
-        if (e == "popUpBackground") {
-          x.style.zIndex = -1;
-          x.style.height = 0;
-          x.style.opacity = 0;
-          y.style.filter = 'blur(0px)';
-        }
+        a.src = categorySpecs[projectIndex].link;
       }
 
       const categorySpecs = [
@@ -426,20 +391,6 @@
           index: 1
         },
         {
-          categoryStyle: "position: absolute; left: 43.3%; top: 30%;",
-          imageContainerStyle: "",
-          imageSource: "project-images/Trade Mapper.png",
-          imageWidth: "180%",
-          linkContainerStyle: "left: 25%; bottom: 35%; border-color: rgb(120, 189, 46);",
-          title: "Trade Mapper",
-          description: "Tracking Global Trade Growth",
-          fill: "rgb(120, 189, 46)",
-          htmlDescription: "<p>Global trade is constantly evolving. Explore how merchandise exports are growing across regions and over time, and discover which economies are driving global trade growth. The Trade Mapper provides an interactive view of the trends and dynamics shaping international trade in goods. It also shows how trading partnerships evolve and the shares of imports and exports across countries.</p><p>Data source: International Trade in Goods by Partner Country (IMTS, formerly DOTS), available on data.imf.org.</p>",
-          link: "https://datacommons.shinyapps.io/world-trade-mapper/",
-          qrCode: "qr-codes/tradeMapper-QR.png",
-          index: 2
-        },
-        {
           categoryStyle: "position: absolute; left: 5%; bottom: 35%;",
           imageContainerStyle: "",
           imageSource: "project-images/FDI Mapper.jpeg",
@@ -451,6 +402,20 @@
           htmlDescription: "<p>Over the past three decades, global foreign direct investment (FDI) has expanded substantially. In recent years. The growth has been particularly rapid in emerging markets and developing economies. Beyond cross-border trade in goods and services, economies have become connected through direct investment, creating complex production networks that knit together supply chains across continents.  Use the FDI Mapper to explore these investment linkages and see how economies are connected around the world.</p><p>Data source: Direct Investment Positions by Counterpart Economy (formerly CDIS), available on data.imf.org.</p>",
           link: "https://datacommons.shinyapps.io/fdi-explorer/",
           qrCode: "qr-codes/fdiMapper-QR.png",
+          index: 2
+        },
+        {
+          categoryStyle: "position: absolute; left: 43.3%; top: 30%;",
+          imageContainerStyle: "",
+          imageSource: "project-images/Trade Mapper.png",
+          imageWidth: "180%",
+          linkContainerStyle: "left: 25%; bottom: 35%; border-color: rgb(120, 189, 46);",
+          title: "Trade Mapper",
+          description: "Tracking Global Trade Growth",
+          fill: "rgb(120, 189, 46)",
+          htmlDescription: "<p>Global trade is constantly evolving. Explore how merchandise exports are growing across regions and over time, and discover which economies are driving global trade growth. The Trade Mapper provides an interactive view of the trends and dynamics shaping international trade in goods. It also shows how trading partnerships evolve and the shares of imports and exports across countries.</p><p>Data source: International Trade in Goods by Partner Country (IMTS, formerly DOTS), available on data.imf.org.</p>",
+          link: "https://datacommons.shinyapps.io/world-trade-mapper/",
+          qrCode: "qr-codes/tradeMapper-QR.png",
           index: 3
         },
         {
