@@ -47,18 +47,22 @@
         html {
           background-color: rgb(255, 255, 255);
           font-family: "Avenir Next", sans-serif;
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
+        body {
+          position: relative;
+          width: min(100vw, calc(100vh * 16 / 9));
+          height: min(100vh, calc(100vw * 9 / 16));
           margin: 0;
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        body {
-          width: 100vw;
-          height: calc(100vw * 9 / 16);
-          max-width: calc(100vh * 16 / 9);
-          max-height: 100vh;
-          aspect-ratio: 16 / 9;
-          margin: 0;
+          overflow: hidden;
         }
         a {
           text-decoration: none;
@@ -96,8 +100,9 @@
           padding-bottom: 24px;
         }
         .navProjectDescription {
-          font-size: calc(3px + 0.6vw);
+          font-size: calc(2.8 * 0.2vw);
           height: 100%;
+          line-height: 30px;
         }
         .navProjectQRCode {
           width: 150px;
@@ -122,8 +127,8 @@
         }
         .category {
           position: absolute;
-          height: calc(20px + 12vw);
-          width: calc(20px + 12vw);
+          height: 25%;
+          width: 14%;
           animation: bounce 7s ease-in-out 0s infinite normal forwards;
           cursor: pointer;
         }
@@ -132,7 +137,7 @@
           height: 100%;
           width: 100%;
           border-radius: 50%;
-          border: calc(5px + 0.5vw) solid rgb(23, 27, 96);
+          border: calc(3 * 0.15vw) solid rgb(23, 27, 96);
           box-shadow: 3px 4px 10px 5px rgba(0,0,0, 0.3);
           display: flex;
           justify-content: center;
@@ -141,10 +146,10 @@
         }
         .linkContainer {
           position: relative;
-          height: calc(24px + 7vw);
-          width: calc(24px + 7vw);
+          height: calc(45 * 0.15vw);
+          width: calc(45 * 0.15vw);
           border-radius: 50%;
-          border: calc(2px + 0.4vw) solid;
+          border: calc(3 * 0.15vw) solid;
           overflow: hidden;
           display: flex;
           justify-content: center;
@@ -161,12 +166,13 @@
         }
         .title {
           font-weight: bold;
-          font-size: calc(4px + 0.7vw);
+          font-size: calc(5 * 0.15vw);
           width: 80%;
         }
         .description {
-          font-size: calc(3px + 0.4vw);
+          font-size: calc(3.2 * 0.15vw);
           text-align: center;
+          padding-top: 5px;
           padding-bottom: 5px;
         }
         .rotate180 {
@@ -206,17 +212,19 @@
         }
         .instructionsTitle {
           font-weight: bold;
-          font-size: calc(9px + 1.6vw);
-          line-height: calc(5px + 1.6vw);
+          font-size: calc(9 * 0.2vw);
+          line-height: calc(5 * 0.2vw);
         }
         .instructionsSeparator {
           background-color: white;
-          height: 2px;
+          height: calc(1 * 0.075vw);
+          margin-top: 10px;
+          margin-bottom: 10px;
           width: 100%;
         }
         .instructionsSubtitle {
           font-weight: 500;
-          font-size: calc(10px + 0.3vw);
+          font-size: calc(2.8 * 0.2vw);
         }
         .iframe {
           height: 100%;
@@ -225,7 +233,6 @@
           z-index: -2;
           opacity: 0%;
           transition: opacity 0.5s ease-in-out;
-          border: 1;
         }
         .iframeContainer {
           height: 95%;
@@ -269,12 +276,12 @@
       </div>
       <div class="iframeContainer" id="iframeContainer">
         <div class="loadingAnimation" id="loadingAnimation"></div>
-        <!-- <div class="iframe" id="iframe"></div> -->
         <iframe
           id="iframe"
           class="iframe"
           width="100%"
           height="100%"
+          style="border-right: 2px solid rgba(0, 0, 0, 0.2); border-left: 0px"
           src="">
         </iframe>
       </div>
@@ -341,6 +348,8 @@
         b.style.zIndex = 0;
 
         projectIndex = null;
+
+        a.src = "";
       }
 
       function nextProject() {
@@ -420,7 +429,7 @@
         },
         {
           categoryStyle: "position: absolute; right: 6%; bottom: 35%;",
-          imageContainerStyle: "overflow: visible; padding-left: 12px; padding-top: 3px",
+          imageContainerStyle: "overflow: visible; padding-left: 18px; padding-top: 3px",
           imageSource: "project-images/geopulse.png",
           imageWidth: "168%",
           linkContainerStyle: "left: 60%; bottom: 50%; border-color: rgb(55, 154, 220);",
