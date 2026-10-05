@@ -78,8 +78,8 @@
           display: flex;
           flex-direction: column;
           height: 90%;
-          width: 20%;
-          padding-right: 80px;
+          width: 25%;
+          padding-right: 60px;
           padding-left: 30px;
         }
         .navReturn {
@@ -95,9 +95,33 @@
           font-weight: bold;
           padding-bottom: 24px;
         }
-        .navProjectDescription {
-          font-size: calc(3px + 0.6vw);
+         .navProjectDescription {
+          font-size: 0.3em;
           height: 100%;
+        }
+        @media (min-width: 800px) {
+          .navProjectDescription {
+            font-size: 0.5em;
+            height: 100%;
+          }
+        }
+
+        @media (min-width: 1200px) {
+          .navProjectDescription {
+            font-size: 0.8em;
+          }
+        }
+
+        @media (min-width: 1600px) {
+          .navProjectDescription {
+            font-size: 1em;
+          }
+        }
+
+        @media (min-width: 2200px) {
+          .navProjectDescription {
+            font-size: 1.4em;
+          }
         }
         .navProjectQRCode {
           width: 150px;
